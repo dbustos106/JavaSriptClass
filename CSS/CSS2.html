@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Inputs</title>
+    <style>
+        * {  /*Preprocesadores (Configurar CSS): webpack stylus*/
+             /*Librerias: Bootstrap materialize*/
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: wheat;
+        }
+
+        input[type=text],
+        select,
+        textarea
+
+        /*,button*/
+            {
+            padding: 12px;
+            border: 1px solid #ccc;
+            /* dotted */
+            border-radius: 4px;
+            resize: vertical;
+            background-color: white;
+        }
+
+        label {
+            padding: 12px 12px 12px 0px;
+            display: block;
+            color: black;
+        }
+
+        select {
+            height: 40px;
+            margin-bottom: 6px;
+        }
+
+        button {
+            background-color: #4caf50;
+            border: none;
+            color: white;
+            padding: 12px 32px;
+            text-decoration: none;
+            cursor: pointer;
+            margin: 10px 0px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        input:focus {
+            background-color: lightblue;
+            border: 3px solid #555;
+            /* dotted */
+        }
+
+        .container {
+            width: 500px;
+            margin: auto;
+            border-radius: 4px;
+            background-color: #f2f2f2;
+            padding: 18px;
+        }
+
+        input::placeholder {
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Formulario estilizado con CSS</h1>
+    <div class="container"> <!-- Desde bustrab (libreria para css) el div principal tiene una clase llamada container-->
+        <form>
+            <label for="nombre">Nombre</label>
+            <input type="text" name="nombre" id="nombre" placeholder="Pon tu nombre aqui" required />
+            <label for="apellido">Nombre</label>
+            <input type="text" name="apellido" id="apellido" placeholder="Pon tu apellido aqui" required />
+            <label for="pais">País</label>
+            <select name="pais" id="pais" required>
+                <option disabled selected hidden>Seleccione</option>
+                <option>Colombia</option>
+                <option>Peru</option>
+                <option>Mexico</option>
+                <option>Venezuela</option>
+            </select>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
