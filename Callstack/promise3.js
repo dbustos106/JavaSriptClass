@@ -8,7 +8,6 @@ const fabricaPromesas = (indice) => new Promise((resolve, reject) => {
     setTimeout(() => {
         resolve(`Promesa ${indice} satisfecha`);
     }, tiempoResolved);
-
 });
 
 let misPromesas = []
@@ -17,8 +16,14 @@ for (let i = 0; i < 10; i++) {
     misPromesas = [...misPromesas, fabricaPromesas(i)];
 }
 
-misPromesas.forEach(promesaActual => 
-    promesaActual
-    .then((respuesta) => {console.log(respuesta)})
-    .catch((razon) => {console.log(razon)})
-);
+/*Promise.all(misPromesas)
+        .then((respuesta) => {console.log(respuesta)})
+        .catch((razon) => {console.log(razon)});*/
+
+/*Promise.allSettled(misPromesas)
+        .then((respuesta) => {console.log(respuesta)})
+        .catch((razon) => {console.log(razon)});*/
+
+Promise.race(misPromesas)
+        .then((respuesta) => {console.log(respuesta)})
+        .catch((razon) => {console.log(razon)});
