@@ -23,7 +23,7 @@ for (let i = 0; i < 10; i++) {
 /*Promise.allSettled(misPromesas)
         .then((respuesta) => {console.log(respuesta)})
         .catch((razon) => {console.log(razon)});*/
-/*Comentario*/
+
 Promise.race(misPromesas)
         .then((respuesta) => {console.log(respuesta)})
         .catch((razon) => {console.log(razon)});
