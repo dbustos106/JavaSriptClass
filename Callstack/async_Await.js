@@ -16,14 +16,14 @@ async function miAsyncFunction(){
         /*console.log("Este es: ", {miPromesa1});*/
         return miPromesa1;
     }catch(error){
-        console.log("Hubo error");
         /*return error;*/
         throw error;
     }
 }
 
 function miFunctionNormal(){
-    return fabricaPromesas(2);
+    const miPromesa2 = fabricaPromesas(2);
+    return miPromesa2;
 }
 
 miAsyncFunction()
