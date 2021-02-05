@@ -6,12 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Call stack </h1>
-    <button id="miBoton">Click</button>
-    <script src="ajax1.js"> </script>
+    <h1>AJAX</h1>
+    <label for="nombre">Nombre</label>
+    <input type="text" name="nombre" id="nombre"/>
+    <br></br>
+    <button id="boton">enviar datos usuario</button>
+    <br></br>
+    <table>
+        <thead>
+            <th>Nombre</th>
+        </thead>
+        <tbody id="body-usuarios">
+
+        </tbody>
+    </table>
+    <script src="fetch.js"> </script>
 </body>
 
 </html>
