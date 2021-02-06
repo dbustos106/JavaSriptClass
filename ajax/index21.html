@@ -89,46 +89,24 @@
             border: 1px solid black;
             color: black;
         }
-
-        button.ver {
-            background-color: orange;
-        }
         
+        .campo-usuario {
+            font-weight: bolder;
+        }
+
     </style>
 </head>
 
 <body>
     <h1>Formulario estilizado con CSS</h1>
     <div class="container"> <!-- Desde bustrab (libreria para css) el div principal tiene una clase llamada container-->
-        <form>
-            <input type="hidden" name="indice" id="indice"/>
-            <label for="nombre">Nombre</label>
-            <input type="text" name="nombre" id="nombre" placeholder="Pon tu nombre aqui" required />
-            <label for="apellido">Apellido</label>
-            <input type="text" name="apellido" id="apellido" placeholder="Pon tu apellido aqui" required />
-            <label for="pais">País</label>
-            <select name="pais" id="pais" required>
-                <option disabled selected hidden>Seleccione</option>
-                <option>Colombia</option>
-                <option>Peru</option>
-                <option>Mexico</option>
-                <option>Venezuela</option>
-            </select>
-            <button type="submit" id="boton">crear</button>
-            <button type="reset" id="limpiar">limpiar</button>
-        </form>
-
+        
         <table>
-            <thead>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Pais</th>
-                <th>Acciones</th>
-            </thead>
-            <tbody id="body-usuarios"></tbody>
+            
+            <tbody id="body-usuario"></tbody>
         </table>
     </div>
-    <script src="crud.js"></script>
+    <script src="carga-usuario.js"></script>
 </body>
 
 </html>
