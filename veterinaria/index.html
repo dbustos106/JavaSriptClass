@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/veterinaria/css/styles.css">
     
 
-    <title>Hello, world!</title>
+    <title>Veterinaria</title>
 </head>
 
 <body>
@@ -71,7 +71,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form id="form">
+                            <input type="hidden" id="indice"/>
                             <div class="form-row">
                                 <div class="col">
                                     <select class="form-control" id="tipo">
@@ -100,8 +101,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button id="btn-cerrar" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button id="btn-guardar" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
                     </div>
                 </div>
             </div>
@@ -123,8 +124,6 @@
             </tbody>
         </table>
     </div>
-
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
