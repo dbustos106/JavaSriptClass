@@ -46,6 +46,8 @@ const server = http.createServer((req, res) => {
             payload: buffer 
         };
 
+        console.log({data});
+
         // 3.6 elegir el manejador dependiendo de la ruta y asignarle la funcion que el enrutador tiene //handler
         let handler;
         if(rutaLimpia && enrutador[rutaLimpia]){
@@ -58,9 +60,10 @@ const server = http.createServer((req, res) => {
         if(typeof handler === `function`){
             handler(data, (statusCode = 200, mensaje) => {
                 const respuesta = JSON.stringify(mensaje);
+                res.setHeader("Content-Type", "application/json");
                 res.writeHead(statusCode);
-                    // linea donde realmente se envia la respuesta a la app cliente
-                    res.end(respuesta);
+                // linea donde realmente se envia la respuesta a la app cliente
+                res.end(respuesta);
             });
         }
     });
