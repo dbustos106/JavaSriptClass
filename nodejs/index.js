@@ -27,7 +27,7 @@ const server = http.createServer((req, res) => {
     const rutaLimpia = ruta.replace(/^\/+|\/+$/g, ``);
 
     // 3.1 obtener el método http
-    const metodo = req.method;
+    const metodo = req.method.toLocaleLowerCase();
 
     // 3.2 obtener variables del query url
     const { query = {} } = urlParseada;
@@ -61,8 +61,9 @@ const server = http.createServer((req, res) => {
 
         // 3.6 elegir el manejador dependiendo de la ruta y asignarle la funcion que el enrutador tiene //handler
         let handler;
-        if(rutaLimpia && enrutador[rutaLimpia]){
-            handler = enrutador[rutaLimpia];
+        console.log("rutalimpia: ", rutaLimpia, "metodo: ", metodo);
+        if(rutaLimpia && enrutador[rutaLimpia] && enrutador[rutaLimpia][metodo]){
+            handler = enrutador[rutaLimpia][metodo];
         }else{
             handler = enrutador.noEncontrado;
         }
@@ -84,13 +85,14 @@ const enrutador = {
     ruta: (data, callback) => {  //handler
         callback(200, {mensaje: `Esta es /ruta`});
     },
-    mascotas: (data, callback) => {  //handler
-        callback(200, recursos.mascotas);
+    mascotas: {
+        get: (data, callback) => {  //handler
+            callback(200, recursos.mascotas);
+        },
     },
-    
     noEncontrado: (data, callback) => {
         callback(404, {mensaje: `No encontrado`});
-    },
+      },
 }
 
 server.listen(5000, () => {
