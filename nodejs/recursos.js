@@ -13,5 +13,10 @@ module.exports = {
     { nombre: "Alexandra2", apellido: "perez2", documento: "234543" },
     { nombre: "Alexandra3", apellido: "perez3", documento: "234543" },
     { nombre: "Alexandra4", apellido: "perez4", documento: "234543" },
+    ],
+    duenos: [{ nombre: "Jorge0", apellido: "rojas0", documento: "234543" },
+    { nombre: "Jorge1", apellido: "rojas1", documento: "234543" },
+    { nombre: "Jorge2", apellido: "rojas2", documento: "234543" },
+    { nombre: "Jorge3", apellido: "rojas3", documento: "234543" },
     ]
 }

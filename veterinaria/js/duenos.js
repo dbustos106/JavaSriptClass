@@ -1,4 +1,4 @@
-const listaClientes = document.getElementById("lista-clientes");
+const listaduenos = document.getElementById("lista-duenos");
 const pais = document.getElementById("pais");
 const identificacion = document.getElementById("identificacion");
 const nombre = document.getElementById("nombre");
@@ -7,7 +7,7 @@ const form = document.getElementById("form");
 const indiceActual = document.getElementById("indice");
 const btnGuardar = document.getElementById("btn-guardar");
 
-let clientes = [
+let duenos = [
     {
         pais: `Colombia`,
         identificacion: `1010234003`,
@@ -22,14 +22,14 @@ let clientes = [
     }
 ];
 
-function listarClientes() {  // Mostrar clientes actualizadas
-    const clientesRender = clientes.map((cliente, index) =>
+function listarduenos() {  // Mostrar duenos actualizadas
+    const duenosRender = duenos.map((dueno, index) =>
         `<tr>
             <th scope="row">${index + 1}</th>
-            <td>${cliente.pais}</td>
-            <td>${cliente.identificacion}</td>
-            <td>${cliente.nombre}</td>
-            <td>${cliente.apellido}</td>
+            <td>${dueno.pais}</td>
+            <td>${dueno.identificacion}</td>
+            <td>${dueno.nombre}</td>
+            <td>${dueno.apellido}</td>
             <td>
                 <div class="btn-group" role="group" aria-label="Basic example">` +
         //<button type="button" class="btn btn-info editar" data-indice=${index} onclick=editar(this)><i class="fas fa-edit"></i></button>
@@ -41,7 +41,7 @@ function listarClientes() {  // Mostrar clientes actualizadas
             </td>
         </tr>`
     ).join("");
-    listaClientes.innerHTML = clientesRender;
+    listaduenos.innerHTML = duenosRender;
     Array.from(document.getElementsByClassName("editar")).forEach((botonEditar, index) => botonEditar.onclick = editar(index));
     Array.from(document.getElementsByClassName("eliminar")).forEach((botonEliminar, index) => botonEliminar.onclick = eliminar(index));
 }
@@ -57,14 +57,14 @@ function enviarDatos(evento) {  // Cuando le doy click al boton de envio del Mod
     var accion = btnGuardar.innerHTML;
     switch (accion) {
         case `Editar`:
-            clientes[indiceActual.value] = datos;
+            duenos[indiceActual.value] = datos;
             break;
         case `Crear`:
-            clientes.push(datos);
+            duenos.push(datos);
             break;
     }
     resetModal();
-    listarClientes();
+    listarduenos();
 }
 
 function resetModal() {
@@ -80,24 +80,24 @@ function editar(index) {  // Cuando le doy click al icono de Editar
     return function handler() {
         btnGuardar.innerText = `Editar`;
         $(`#exampleModal`).modal(`toggle`);
-        console.log(clientes[index]);
-        const cliente = clientes[index];
-        pais.value = cliente.pais;
-        identificacion.value = cliente.identificacion;
-        nombre.value = cliente.nombre;
-        apellido.value = cliente.apellido;
+        console.log(duenos[index]);
+        const dueno = duenos[index];
+        pais.value = dueno.pais;
+        identificacion.value = dueno.identificacion;
+        nombre.value = dueno.nombre;
+        apellido.value = dueno.apellido;
         indiceActual.value = index;
     }
 }
 // Closure
 function eliminar(index) {
     return function handler() {
-        clientes = clientes.filter((cliente, indiceCliente) => indiceCliente !== index);
-        listarClientes();
+        duenos = duenos.filter((dueno, indicedueno) => indicedueno !== index);
+        listarduenos();
     }
 }
 
-listarClientes();
+listarduenos();
 
 form.onsubmit = enviarDatos;
 btnGuardar.onclick = enviarDatos;
