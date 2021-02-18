@@ -85,7 +85,7 @@ function editar(index) {  // Cuando le doy click al icono de Editar
 // Closure
 function eliminar(index) {
     return function handler() {
-        mascotas = mascotas.filter((mascota, indiceMascota) => indiceMascota !== index);
+        mascotas = mascotas.filter((_mascota, indiceMascota) => indiceMascota !== index);
         listarMascotas();
     }
 }
