@@ -20,6 +20,7 @@ let mascotas = [
 ];
 
 function listarMascotas() {  // Mostrar mascotas actualizadas
+    solicitarMascotas();
     const mascotasRender = mascotas.map((mascota, index) =>
         `<tr>
             <th scope="row">${index + 1}</th>
@@ -88,6 +89,16 @@ function eliminar(index) {
         mascotas = mascotas.filter((_mascota, indiceMascota) => indiceMascota !== index);
         listarMascotas();
     }
+}
+
+function solicitarMascotas(){
+    fetch(`http://localhost:5000/mascotas`, {mode: "cors"}).then((respuesta)=>{
+        if(respuesta.ok){
+            return repsuesta.json();
+        }
+    }).then((mascotasDelServer) => {
+        console.log({mascotasDelServer});
+    });
 }
 
 listarMascotas();
