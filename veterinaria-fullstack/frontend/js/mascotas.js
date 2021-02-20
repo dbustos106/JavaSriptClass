@@ -3,64 +3,80 @@ const tipo = document.getElementById("tipo");
 const nombre = document.getElementById("nombre");
 const dueno = document.getElementById("dueno");
 const form = document.getElementById("form");
-const indiceActual = document.getElementById("indice");
+const indice = document.getElementById("indice");
 const btnGuardar = document.getElementById("btn-guardar");
+const url = `http://localhost:5000/mascotas`;
 
-let mascotas = [
-    {
-        tipo: `Gato`,
-        nombre: `Manchas`,
-        dueno: `Esteban`
-    },
-    {
-        tipo: `Perro`,
-        nombre: `Roqui`,
-        dueno: `Julian`
+let mascotas = [];
+
+async function listarMascotas() {  // Mostrar mascotas actualizadas
+    try {
+        const respuesta = await fetch(url);
+        const mascotasDelServer = await respuesta.json();
+        if (Array.isArray(mascotasDelServer)) {
+            mascotas = mascotasDelServer;
+        }
+        if(mascotas.length > 0){
+            const mascotasRender = mascotas.map((mascota, index) =>
+                `<tr>
+                <th scope="row">${index + 1}</th>
+                <td>${mascota.tipo}</td>
+                <td>${mascota.nombre}</td>
+                <td>${mascota.dueno}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">` +
+                //<button type="button" class="btn btn-info editar" data-indice=${index} onclick=editar(this)><i class="fas fa-edit"></i></button>
+                //<button type="button" class="btn btn-info editar" onclick=editar(${index})><i class="fas fa-edit"></i></button>
+                //<button type="button" class="btn btn-info editar" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-edit"></i></button>
+                `<button type="button" class="btn btn-info editar"><i class="fas fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger eliminar"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </td>
+            </tr>`
+            ).join("");
+            listaMascotas.innerHTML = mascotasRender;
+            Array.from(document.getElementsByClassName("editar")).forEach((botonEditar, index) => botonEditar.onclick = editar(index));
+            Array.from(document.getElementsByClassName("eliminar")).forEach((botonEliminar, index) => botonEliminar.onclick = eliminar(index));
+        }else{
+            listaMascotas.innerHTML = `<tr>
+                <td colspan="5">No hay mascotas</td>
+                </tr>`;
+        }
+    } catch (error) {
+        $(`.alert`).show("show");
+        console.log(error);
     }
-];
-
-function listarMascotas() {  // Mostrar mascotas actualizadas
-    solicitarMascotas();
-    const mascotasRender = mascotas.map((mascota, index) =>
-        `<tr>
-            <th scope="row">${index + 1}</th>
-            <td>${mascota.tipo}</td>
-            <td>${mascota.nombre}</td>
-            <td>${mascota.dueno}</td>
-            <td>
-                <div class="btn-group" role="group" aria-label="Basic example">` +
-        //<button type="button" class="btn btn-info editar" data-indice=${index} onclick=editar(this)><i class="fas fa-edit"></i></button>
-        //<button type="button" class="btn btn-info editar" onclick=editar(${index})><i class="fas fa-edit"></i></button>
-        //<button type="button" class="btn btn-info editar" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-edit"></i></button>
-        `<button type="button" class="btn btn-info editar"><i class="fas fa-edit"></i></button>
-                    <button type="button" class="btn btn-danger eliminar"><i class="fas fa-trash-alt"></i></button>
-                </div>
-            </td>
-        </tr>`
-    ).join("");
-    listaMascotas.innerHTML = mascotasRender;
-    Array.from(document.getElementsByClassName("editar")).forEach((botonEditar, index) => botonEditar.onclick = editar(index));
-    Array.from(document.getElementsByClassName("eliminar")).forEach((botonEliminar, index) => botonEliminar.onclick = eliminar(index));
 }
 
-function enviarDatos(evento) {  // Cuando le doy click al boton de envio del Modal
+async function enviarDatos(evento) {  // Cuando le doy click al boton de envio del Modal
     evento.preventDefault();
-    const datos = {
-        tipo: tipo.value,
-        nombre: nombre.value,
-        dueno: dueno.value
-    };
-    var accion = btnGuardar.innerHTML;
-    switch (accion) {
-        case `Editar`:
-            mascotas[indiceActual.value] = datos;
-            break;
-        case `Crear`:
-            mascotas.push(datos);
-            break;
+    try {
+        const datos = {
+            tipo: tipo.value,
+            nombre: nombre.value,
+            dueno: dueno.value
+        };
+        let metodo = "POST";
+        let urlEnvio = url;
+        var accion = btnGuardar.innerHTML;
+        if (accion === `Editar`) {
+            mascotas[indice.value] = datos;
+            urlEnvio = `${url}/${indice.value}`
+            metodo = "PUT";
+        }//coment
+        const respuesta = await fetch(urlEnvio, {
+            method: metodo,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(datos)
+        });
+        if (respuesta.ok) {
+            resetModal();
+            listarMascotas();
+        }
+    } catch (error) {
+        $(`.alert`).show("show");
+        console.log(error);
     }
-    resetModal();
-    listarMascotas();
 }
 
 function resetModal() {
@@ -68,7 +84,7 @@ function resetModal() {
     tipo.value = `Tipo de animal`;
     nombre.value = ``;
     dueno.value = `Dueño`;
-    indiceActual.value = ``;
+    indice.value = ``;
 }
 // CloSure -->
 function editar(index) {  // Cuando le doy click al icono de Editar
@@ -80,25 +96,26 @@ function editar(index) {  // Cuando le doy click al icono de Editar
         tipo.value = mascota.tipo;
         nombre.value = mascota.nombre;
         dueno.value = mascota.dueno;
-        indiceActual.value = index;
+        indice.value = index;
     }
 }
 // Closure
 function eliminar(index) {
-    return function handler() {
-        mascotas = mascotas.filter((_mascota, indiceMascota) => indiceMascota !== index);
-        listarMascotas();
-    }
-}
-
-function solicitarMascotas(){
-    fetch(`http://localhost:5000/mascotas`, {mode: "cors"}).then((respuesta)=>{
-        if(respuesta.ok){
-            return repsuesta.json();
+    const urlEnvio = `${url}/${index}`
+    return async function handler() {
+        try {
+            const respuesta = await fetch(urlEnvio, {
+                method: `DELETE`,
+            });
+            if (respuesta.ok) {
+                resetModal();
+                listarMascotas();
+            }
+        } catch (error) {
+            $(`.alert`).show("show");
+            console.log(error);
         }
-    }).then((mascotasDelServer) => {
-        console.log({mascotasDelServer});
-    });
+    }
 }
 
 listarMascotas();

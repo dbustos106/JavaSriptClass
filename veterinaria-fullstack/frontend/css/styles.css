@@ -9,3 +9,12 @@
 .actions-menu h1 {
     margin-bottom: 20px;
 }
+
+.actions-menu-content > button.btn.btn-primary {
+    height: 40px;
+    justify-content: space-between;
+}
+
+.alert {
+    display: none;
+}
