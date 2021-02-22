@@ -1,10 +1,9 @@
 const listaVeterinarios = document.getElementById("lista-veterinarios");
-const pais = document.getElementById("pais");
-const identificacion = document.getElementById("identificacion");
+const documento = document.getElementById("documento");
 const nombre = document.getElementById("nombre");
 const apellido = document.getElementById("apellido");
 const form = document.getElementById("form");
-const indiceActual = document.getElementById("indice");
+const indice = document.getElementById("indice");
 const btnGuardar = document.getElementById("btn-guardar");
 const url = `http://localhost:5000/veterinarios`;
 
@@ -12,26 +11,24 @@ let veterinarios = [];
 
 async function listarVeterinarios() {  // Mostrar veterinarios actualizadas
     try {
-
         const respuesta = await fetch(url);
         const veterinariosDelServer = await respuesta.json();
         if (Array.isArray(veterinariosDelServer)) {
             veterinarios = veterinariosDelServer;
         }
-        if (mascotas.length > 0) {
+        if (veterinarios.length > 0) {
             const veterinariosRender = veterinarios.map((veterinario, index) =>
                 `<tr>
                     <th scope="row">${index + 1}</th>
-                    <td>${veterinario.pais}</td>
-                    <td>${veterinario.identificacion}</td>
+                    <td>${veterinario.documento}</td>
                     <td>${veterinario.nombre}</td>
                     <td>${veterinario.apellido}</td>
                     <td>
                     <div class="btn-group" role="group" aria-label="Basic example">` +
-                    //<button type="button" class="btn btn-info editar" data-indice=${index} onclick=editar(this)><i class="fas fa-edit"></i></button>
-                    //<button type="button" class="btn btn-info editar" onclick=editar(${index})><i class="fas fa-edit"></i></button>
-                    //<button type="button" class="btn btn-info editar" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-edit"></i></button>
-                    `<button type="button" class="btn btn-info editar"><i class="fas fa-edit"></i></button>
+                //<button type="button" class="btn btn-info editar" data-indice=${index} onclick=editar(this)><i class="fas fa-edit"></i></button>
+                //<button type="button" class="btn btn-info editar" onclick=editar(${index})><i class="fas fa-edit"></i></button>
+                //<button type="button" class="btn btn-info editar" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-edit"></i></button>
+                `<button type="button" class="btn btn-info editar"><i class="fas fa-edit"></i></button>
                     <button type="button" class="btn btn-danger eliminar"><i class="fas fa-trash-alt"></i></button>
                     </div>
                     </td>
@@ -50,34 +47,43 @@ async function listarVeterinarios() {  // Mostrar veterinarios actualizadas
     }
 }
 
-function enviarDatos(evento) {  // Cuando le doy click al boton de envio del Modal
+async function enviarDatos(evento) {  // Cuando le doy click al boton de envio del Modal
     evento.preventDefault();
-    const datos = {
-        pais: pais.value,
-        identificacion: identificacion.value,
-        nombre: nombre.value,
-        apellido: apellido.value
-    };
-    var accion = btnGuardar.innerHTML;
-    switch (accion) {
-        case `Editar`:
-            veterinarios[indiceActual.value] = datos;
-            break;
-        case `Crear`:
-            veterinarios.push(datos);
-            break;
+    try {
+        const datos = {
+            documento: documento.value,
+            nombre: nombre.value,
+            apellido: apellido.value
+        };
+        var accion = btnGuardar.innerHTML;
+        let metodo = "POST";
+        let urlEnvio = url;
+        if (accion === `Editar`) {
+            urlEnvio += `/${indice.value}`
+            console.log(indice.value);
+            metodo = "PUT";
+        }
+        const respuesta = await fetch(urlEnvio, {
+            method: metodo,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(datos)
+        });
+        if (respuesta.ok) {
+            resetModal();
+            listarVeterinarios();
+        }
+    } catch (error) {
+        $(`.alert`).show("show");
+        console.log(error);
     }
-    resetModal();
-    listarVeterinarios();
 }
 
 function resetModal() {
     btnGuardar.innerText = `Crear`;
-    pais.value = `País`;
-    identificacion.value = ``;
+    documento.value = ``;
     nombre.value = ``;
     apellido.value = ``;
-    indiceActual.value = ``;
+    indice.value = ``;
 }
 // CloSure -->
 function editar(index) {  // Cuando le doy click al icono de Editar
@@ -86,18 +92,28 @@ function editar(index) {  // Cuando le doy click al icono de Editar
         $(`#exampleModal`).modal(`toggle`);
         console.log(veterinarios[index]);
         const veterinario = veterinarios[index];
-        pais.value = veterinario.pais;
-        identificacion.value = veterinario.identificacion;
+        documento.value = veterinario.documento;
         nombre.value = veterinario.nombre;
         apellido.value = veterinario.apellido;
-        indiceActual.value = index;
+        indice.value = index;
     }
 }
 // Closure
 function eliminar(index) {
-    return function handler() {
-        veterinarios = veterinarios.filter((veterinario, indiceVeterinario) => indiceVeterinario !== index);
-        listarVeterinarios();
+    const urlEnvio = `${url}/${index}`
+    return async function handler() {
+        try {
+            const respuesta = await fetch(urlEnvio, {
+                method: `DELETE`,
+            });
+            if (respuesta.ok) {
+                resetModal();
+                listarVeterinarios();
+            }
+        } catch (error) {
+            $(`.alert`).show("show");
+            console.log(error);
+        }
     }
 }
 
