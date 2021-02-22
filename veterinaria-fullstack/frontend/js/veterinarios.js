@@ -6,44 +6,48 @@ const apellido = document.getElementById("apellido");
 const form = document.getElementById("form");
 const indiceActual = document.getElementById("indice");
 const btnGuardar = document.getElementById("btn-guardar");
+const url = `http://localhost:5000/veterinarios`;
 
-let veterinarios = [
-    {
-        pais: `Colombia`,
-        identificacion: `1010234003`,
-        nombre: `Julian`,
-        apellido: `Bustos`
-    },
-    {
-        pais: `Colombia`,
-        identificacion: `101454003`,
-        nombre: `Juan`,
-        apellido: `Marin`
-    }
-];
+let veterinarios = [];
 
-function listarVeterinarios() {  // Mostrar veterinarios actualizadas
-    const veterinariosRender = veterinarios.map((veterinario, index) =>
-        `<tr>
-            <th scope="row">${index + 1}</th>
-            <td>${veterinario.pais}</td>
-            <td>${veterinario.identificacion}</td>
-            <td>${veterinario.nombre}</td>
-            <td>${veterinario.apellido}</td>
-            <td>
-                <div class="btn-group" role="group" aria-label="Basic example">` +
-        //<button type="button" class="btn btn-info editar" data-indice=${index} onclick=editar(this)><i class="fas fa-edit"></i></button>
-        //<button type="button" class="btn btn-info editar" onclick=editar(${index})><i class="fas fa-edit"></i></button>
-        //<button type="button" class="btn btn-info editar" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-edit"></i></button>
-        `<button type="button" class="btn btn-info editar"><i class="fas fa-edit"></i></button>
+async function listarVeterinarios() {  // Mostrar veterinarios actualizadas
+    try {
+
+        const respuesta = await fetch(url);
+        const veterinariosDelServer = await respuesta.json();
+        if (Array.isArray(veterinariosDelServer)) {
+            veterinarios = veterinariosDelServer;
+        }
+        if (mascotas.length > 0) {
+            const veterinariosRender = veterinarios.map((veterinario, index) =>
+                `<tr>
+                    <th scope="row">${index + 1}</th>
+                    <td>${veterinario.pais}</td>
+                    <td>${veterinario.identificacion}</td>
+                    <td>${veterinario.nombre}</td>
+                    <td>${veterinario.apellido}</td>
+                    <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">` +
+                    //<button type="button" class="btn btn-info editar" data-indice=${index} onclick=editar(this)><i class="fas fa-edit"></i></button>
+                    //<button type="button" class="btn btn-info editar" onclick=editar(${index})><i class="fas fa-edit"></i></button>
+                    //<button type="button" class="btn btn-info editar" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-edit"></i></button>
+                    `<button type="button" class="btn btn-info editar"><i class="fas fa-edit"></i></button>
                     <button type="button" class="btn btn-danger eliminar"><i class="fas fa-trash-alt"></i></button>
-                </div>
-            </td>
-        </tr>`
-    ).join("");
-    listaVeterinarios.innerHTML = veterinariosRender;
-    Array.from(document.getElementsByClassName("editar")).forEach((botonEditar, index) => botonEditar.onclick = editar(index));
-    Array.from(document.getElementsByClassName("eliminar")).forEach((botonEliminar, index) => botonEliminar.onclick = eliminar(index));
+                    </div>
+                    </td>
+                </tr>`
+            ).join("");
+            listaVeterinarios.innerHTML = veterinariosRender;
+            Array.from(document.getElementsByClassName("editar")).forEach((botonEditar, index) => botonEditar.onclick = editar(index));
+            Array.from(document.getElementsByClassName("eliminar")).forEach((botonEliminar, index) => botonEliminar.onclick = eliminar(index));
+        } else {
+            listaMascotas.innerHTML = `<tr>
+            <td colspan="5">No hay mascotas</td>
+            </tr>`;
+        }
+    } catch (error) {
+        $(`.alert`).show(`show`);
+    }
 }
 
 function enviarDatos(evento) {  // Cuando le doy click al boton de envio del Modal
