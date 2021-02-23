@@ -22,11 +22,11 @@ module.exports = {
     consultas: [
         {
             mascota: 0, 
-            veterinaria: 0,  
+            veterinario: 0,  
             fechaCreacion: new Date(), 
             fechaEdicion: new Date(), 
             historia: ``, 
-            diagnostico: ``,
+            diagnostico: `diagnostico`,
         }
     ]
 }
