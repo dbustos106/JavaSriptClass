@@ -53,9 +53,17 @@
 
         <div class="actions-menu">
             <h1>Dueños</h1>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Nuevo
-            </button>
+            <div class="actions-menu-content">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Nuevo
+                </button>
+                <div class="alert alert-danger" role="alert">
+                    <strong>Oops!</strong> Algo va mal, por favor vuelve a intentarlo!.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
         </div>
         <!-- Button trigger modal -->
 
@@ -75,18 +83,8 @@
                             <input type="hidden" id="indice" />
                             <div class="form-row">
                                 <div class="col">
-                                    <select class="form-control" id="pais">
-                                        <option>País</option>
-                                        <option>Colombia</option>
-                                        <option>Ecuador</option>
-                                        <option>Bolivia</option>
-                                        <option>Venezuela</option>
-                                        <option>Chile</option>
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <input type="text" id="identificacion" name="identificacion" class="form-control"
-                                        placeholder="identificacion">
+                                    <input type="text" id="documento" name="documento" class="form-control"
+                                        placeholder="documento">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -94,6 +92,8 @@
                                     <input type="text" id="nombre" name="nombre" class="form-control"
                                         placeholder="Nombre">
                                 </div>
+                            </div>
+                            <div class="form-row">
                                 <div class="col">
                                     <input type="text" id="apellido" name="apellido" class="form-control"
                                         placeholder="Apellido">
@@ -142,7 +142,7 @@
         crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.13.0/js/v4-shims.js"></script>
-    <script src="/veterinaria-fullstack/frontend/js/duenos.js"></script>
+    <script src="./js/duenos.js"></script>
 </body>
 
 </html>

@@ -39,7 +39,7 @@ async function listarVeterinarios() {  // Mostrar veterinarios actualizadas
             Array.from(document.getElementsByClassName("eliminar")).forEach((botonEliminar, index) => botonEliminar.onclick = eliminar(index));
         } else {
             listaVeterinarios.innerHTML = `<tr>
-            <td colspan="5">No hay veterinarios</td>
+                <td colspan="5">No hay veterinarios</td>
             </tr>`;
         }
     } catch (error) {
@@ -60,7 +60,6 @@ async function enviarDatos(evento) {  // Cuando le doy click al boton de envio d
         let urlEnvio = url;
         if (accion === `Editar`) {
             urlEnvio += `/${indice.value}`
-            console.log(indice.value);
             metodo = "PUT";
         }
         const respuesta = await fetch(urlEnvio, {
