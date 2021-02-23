@@ -1,5 +1,6 @@
 const listaConsultas = document.getElementById("lista-consultas");
 const mascota = document.getElementById("mascota");
+const veterinario = document.getElementById("veterinario");
 const url = `http://localhost:5000`;
 
 let consultas = []
@@ -60,12 +61,32 @@ async function listarMascotas(){
                 optionActual.value = indice;
                 mascota.appendChild(optionActual);
             });
-            mascota.innerHTML += renderMascotas;
         }
     } catch (error) {
         throw error;
     }
 }
 
+async function listarVeterinarios(){
+    try {
+        const respuesta = await fetch(`${url}/veterinarios`);
+        const veterinariosDelServer = await respuesta.json();
+        if(Array.isArray(veterinariosDelServer)){
+            veterinarios = veterinariosDelServer;
+        }
+        if(veterinarios.length > 0){
+            veterinarios.forEach((veterinarioActual, indice) => {
+                const optionActual = document.createElement("option");
+                optionActual.innerHTML = `${veterinarioActual.nombre} ${veterinarioActual.apellido}`;
+                optionActual.value = indice;
+                veterinario.appendChild(optionActual);
+            });
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
+listarVeterinarios();
 listarMascotas();
 listarConsultas();

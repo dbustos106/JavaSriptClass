@@ -73,17 +73,33 @@
                             <div class="form-row">
                                 <div class="col">
                                     <select class="form-control" id="mascota">
-                                      <option>Seleccione mascota</option>
+                                        <option>Seleccione mascota</option>
                                     </select>
-                                  </div>
+                                </div>
                             </div>
                             <div class="form-row">
-                              <div class="col">
-                                <input type="text" class="form-control" placeholder="First name">
-                              </div>
-                              <div class="col">
-                                <input type="text" class="form-control" placeholder="Last name">
-                              </div>
+                                <div class="col">
+                                    <select class="form-control" id="veterinario">
+                                        <option>Seleccione veterinario</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <textarea type="text" id="historia" class="form-control"
+                                        placeholder="Historia"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <select class="form-control" id="diagnostico">
+                                        <option>Seleccione diagnostico</option>
+                                        <option>Prurito de piel (sarna)</option>
+                                        <option>Moquillo</option>
+                                        <option>Trauma cefálico</option>
+                                        <option>Parvovirosis</option>
+                                    </select>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -107,7 +123,7 @@
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody id="lista-consultas"> 
+            <tbody id="lista-consultas">
             </tbody>
         </table>
     </div>
