@@ -38,8 +38,8 @@ async function listarVeterinarios() {  // Mostrar veterinarios actualizadas
             Array.from(document.getElementsByClassName("editar")).forEach((botonEditar, index) => botonEditar.onclick = editar(index));
             Array.from(document.getElementsByClassName("eliminar")).forEach((botonEliminar, index) => botonEliminar.onclick = eliminar(index));
         } else {
-            listaMascotas.innerHTML = `<tr>
-            <td colspan="5">No hay mascotas</td>
+            listaVeterinarios.innerHTML = `<tr>
+            <td colspan="5">No hay veterinarios</td>
             </tr>`;
         }
     } catch (error) {
