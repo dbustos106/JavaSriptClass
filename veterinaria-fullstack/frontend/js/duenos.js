@@ -88,7 +88,6 @@ function editar(index) {  // Cuando le doy click al icono de Editar
     return function handler() {
         btnGuardar.innerText = `Editar`;
         $(`#exampleModal`).modal(`toggle`);
-        console.log(duenos[index]);
         const dueno = duenos[index];
         documento.value = dueno.documento;
         nombre.value = dueno.nombre;
@@ -110,7 +109,6 @@ function eliminar(index) {
             }
         } catch (error) {
             $(`.alert`).show("show");
-            console.log(error);
         }
     }
 }

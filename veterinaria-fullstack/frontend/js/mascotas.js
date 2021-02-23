@@ -44,7 +44,6 @@ async function listarMascotas() {  // Mostrar mascotas actualizadas
         }
     } catch (error) {
         $(`.alert`).show("show");
-        console.log(error);
     }
 }
 
@@ -75,7 +74,6 @@ async function enviarDatos(evento) {  // Cuando le doy click al boton de envio d
         }
     } catch (error) {
         $(`.alert`).show("show");
-        console.log(error);
     }
 }
 
@@ -91,7 +89,6 @@ function editar(index) {  // Cuando le doy click al icono de Editar
     return function handler() {
         btnGuardar.innerText = `Editar`;
         $(`#exampleModal`).modal(`toggle`);
-        console.log(mascotas[index]);
         const mascota = mascotas[index];
         tipo.value = mascota.tipo;
         nombre.value = mascota.nombre;
@@ -113,7 +110,6 @@ function eliminar(index) {
             }
         } catch (error) {
             $(`.alert`).show("show");
-            console.log(error);
         }
     }
 }

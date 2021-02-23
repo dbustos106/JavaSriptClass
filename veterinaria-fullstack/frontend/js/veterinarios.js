@@ -73,7 +73,6 @@ async function enviarDatos(evento) {  // Cuando le doy click al boton de envio d
         }
     } catch (error) {
         $(`.alert`).show("show");
-        console.log(error);
     }
 }
 
@@ -89,7 +88,6 @@ function editar(index) {  // Cuando le doy click al icono de Editar
     return function handler() {
         btnGuardar.innerText = `Editar`;
         $(`#exampleModal`).modal(`toggle`);
-        console.log(veterinarios[index]);
         const veterinario = veterinarios[index];
         documento.value = veterinario.documento;
         nombre.value = veterinario.nombre;
@@ -111,7 +109,6 @@ function eliminar(index) {
             }
         } catch (error) {
             $(`.alert`).show("show");
-            console.log(error);
         }
     }
 }
