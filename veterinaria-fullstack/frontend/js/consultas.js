@@ -7,7 +7,7 @@ const diagnostico = document.getElementById("diagnostico");
 const indice = document.getElementById("indice");
 const formulario = document.getElementById("formulario");
 const url = `http://localhost:5000`;
-
+//comentario
 let consultas = []
 let mascotas = []
 
